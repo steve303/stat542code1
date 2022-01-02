@@ -1,5 +1,5 @@
 ---
-title: "(PSL) Coding Assignment 1"
+title: "(PSL) Coding Study 1"
 output:
   html_document:
     df_print: paged
@@ -11,9 +11,13 @@ output:
 date: "Fall 2021"
 ---
 
+## Objective
+1) Design a KNN algorithm using R 
+2) Summarize classification performance using KNN, linear/quadratic regression and Bayes rule.  Training and test data are generated from a bi-variate Gaussian mixture model.   
+
 ## Data Generation
 
-This assignment is related to the simulation study described in Section 2.3.1 (the so-called Scenario 2) of "Elements of Statistical Learning" (ESL).
+This study is related to the simulation study described in Section 2.3.1 (the so-called Scenario 2) of "Elements of Statistical Learning" (ESL).
 
 **Scenario 2**: the two-dimensional data $X \in R^2$ in each class is generated from a mixture of 10 different bivariate Gaussian distributions with uncorrelated components and different means, i.e.,
 $$ X \ | \ Y = k, Z = j \quad \sim \mathcal{N}(\mathbf{m}_{kj}, s^2 I_2) 
@@ -117,7 +121,7 @@ legend("bottomright", pch = c(1,1), col = c("blue", "red"),
 
 ## Part I
 
-In the first part of this assignment, you are asked to:  
+In the first part of this study, you are asked to:  
 
 1) Write your own KNN code without using any package  
 2) Explain how you handle distance ties and voting ties  
@@ -188,7 +192,7 @@ test.pred = knn(traindata, testdata, Ytrain, k = 5)
 table(Ytest, test.pred)
 ```
 
-### Part I Answers:  
+### Part I summary:  
 
 1) *Write your own KNN code without using any packages*; See myKnn() function 
 2) *Explain how you handle distance ties and voting ties*; Both distance and voting ties are handled by reducing k by one. The code removes the kth element from the vote so there cannot be a tie.  For two label classification there will always be a winner even with distance ties.  However for multi-label classification, this will not work to break ties.   
@@ -204,7 +208,7 @@ table(Ytest, pred_vec_k5)
 
 ## Part II
 
-In the second part of this assignment, you are asked to use the **same** set of centers `m1` and `m0`, and repeat the data generating process using `generate_sim_data` 50 times. For each dataset, calculate the training and test errors (the averaged 0/1 error) for each the following four procedures:
+In the second part of this study, you are asked to use the **same** set of centers `m1` and `m0`, and repeat the data generating process using `generate_sim_data` 50 times. For each dataset, calculate the training and test errors (the averaged 0/1 error) for each the following four procedures:
 
 1) Linear regression with cut-off value 0.5,
 2) quadratic regression with cut-off value 0.5,
@@ -531,7 +535,7 @@ boxplot(df_models,
 ```
 
 
-### Part II answers:  
+### Part II summary:  
 
 The results from this simulation show that training error is slightly lower or nearly the same as the test error.  In general, we would expect the training error to be lower because the model has been conditioned on the training data.  This does not apply to the Bayes model since there is no training.  In both the linear and quadratic models, the mean training error was slightly lower than the test error.  In the linear model, the mean training and test errors were `r colMeans(matrix_res)[1]` and `r colMeans(matrix_res)[2]`, respectively, 1% difference. In the quadratic model, the mean training and test errors were `r colMeans(matrix_res)[3]` and `r colMeans(matrix_res)[4]`, respectively, 4% difference.  The KNN model had a much larger percent difference, 29%, bewteen the mean training and test errors, `r colMeans(matrix_res)[5]` and `r colMeans(matrix_res)[6]`, respectively. The Bayes' mean training error, `r colMeans(matrix_res)[7]`, and test error, `r colMeans(matrix_res)[8]`, show a small difference, 3%, as would be expected since there is no training.  As a consequence the training data doesn't have the advantage of prior knowledge compared to the test data.  Also the variance in all models are smaller in the test data versus the training data.  This is attributed to the larger sample size in the test set (n=10000) versus training set (n=200).
 
@@ -547,25 +551,7 @@ The mean k value is `r mean_k` and its std error is `r std_err_k`.
 
 ---
 
-## What to Submit
-A Markdown (or Notebook) file in HTML format.
 
-* You are not allowed to use any functions/packages except `knn` and `ggplot2`. For example, you cannot use functions/packages for evaluating normal density functions or for cross validation; you have to write your own.
-
-* Set the seed at the beginning of your code to be the last 4-dig of your University ID. So once we run your code, we can get the same result.
-
-* Name your file starting with 
-  
-  <span style="color: red;">Assignment_1_xxxx netID</span>
-  
-  where “xxxx” is the last 4-dig of your University ID and make sure the same 4-dig is used as the seed in your code.
-
-  For example, the submission for Max Chen with UID 672757127 and netID mychen12 should be named as
-  
-  <span style="color: red;">Assignment 1 7127 mychen12 MaxChen.html</span>
-  
-  You can add whatever characters after your netID.
-  
 ## Appendix
 ```{r}
 hist(kvalues)
