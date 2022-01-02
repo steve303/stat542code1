@@ -1,3 +1,4 @@
+## Practical Statistical Learning - General comparisons of machine learning algorithms trained on bi-variate Gaussian mixture model  
 ## Objective
 1) Design a KNN algorithm using R 
 2) Summarize classification performance using KNN, linear/quadratic regression and Bayes rule.  Training and test data are generated from a bi-variate Gaussian mixture model.  
